@@ -23,14 +23,6 @@ def about():
 def projects():
     return render_template('projects.html')
 
-
-# Resume example.
-
-@app.route('/resume')
-def resume():
-    return render_template('resume.html')
-
-
 # Run this thing!
 if __name__ == '__main__':
     app.run(debug=True)

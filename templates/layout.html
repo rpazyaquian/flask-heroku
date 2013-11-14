@@ -16,14 +16,16 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <title>Trial Page</title>
+    <title>retrocombine.herokuapps.com</title>
 
 </head>
 
 <body>
 
 <header>
+    {% block header %}
         <h1 class="box" id="logo">Trial</h1>
+    {% endblock %}
 </header>
 
 <div class="grid-container">
