@@ -3,38 +3,14 @@
 @import "unsemantic.css";
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
-body {
-  background-color: #ffffff;
-  color: #000000;
-  font-family: 'Open Sans', sans-serif;
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+html {
+  font-family: "Open Sans", sans-serif;
 }
-#logo {
-  box-shadow: 0 0 2px;
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 2em;
-  margin-top: 0;
-  background-color: #cccccc;
+body h2 {
+  margin-top: 1.5em;
 }
-#main {
-  background-color: #74C9ED;
-}
-#nav {
-  background-color: #74C9ED;
-  padding-bottom: 1em;
-}
-#nav li a {
-  color: #000000;
-  text-decoration: none;
-}
-#nav li avisited {
-  color: #000000;
-}
-#post-title {
-  background-color: #47b7e7;
-  color: #000000;
-}
-#nav-title {
-  background-color: #47b7e7;
-  color: #000000;
+body h3 {
+  margin-top: 1.275em;
 }

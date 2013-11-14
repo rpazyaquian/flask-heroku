@@ -3,6 +3,7 @@
 
 <head>
 
+    {% block head %}
     <!--Unsemantic-->
     <meta
     name="viewport"
@@ -16,7 +17,9 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <title>retrocombine.herokuapps.com</title>
+    <title>retrocombine.herokuapp.com</title>
+
+   {% endblock %}
 
 </head>
 

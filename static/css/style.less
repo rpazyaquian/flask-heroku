@@ -1,80 +1,16 @@
-// Declare my variables.
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
-@backcolor: #FFFFFF;
+@h2margin: 1.5em;
 
-@fontcolor: #000000;
-
-@boxcolor: darken(@backcolor, 20%);
-
-@boxshadow: 0 0 2px;
-
-@seccolor: #74C9ED;
-
-@darksec: darken(@seccolor, 10%);
-
-
-// Write the CSS.
+html {
+	font-family: "Open Sans", sans-serif;
+}
 
 body {
-	background-color: @backcolor;
-	color: @fontcolor;
-	font-family: 'Open Sans', sans-serif;
-}
-
-#logo {
-	box-shadow: @boxshadow;
-	text-align: center;
-	padding: 10px;
-	margin-bottom: 2em;	
-	margin-top: 0;
-	background-color: @boxcolor;
-}
-
-// .navbar {
-// 	float: right;
-// 	margin-top: 8px;
-// 	margin-bottom: 1em;
-
-// 	li {
-// 		display: inline;
-// 		a {
-// 			color: @fontcolor;
-// 			text-align: center;
-// 			text-decoration: none;
-
-// 			&:visited {
-// 				color: @fontcolor;
-// 			}
-// 		}
-// 	}
-// }
-
-#main {
-	background-color: #74C9ED;
-}
-
-#nav {
-	background-color: #74C9ED;
-	padding-bottom: 1em;
-
-	li {
-		a {
-			color: @fontcolor;
-			text-decoration: none;
-
-			&visited {
-				color: @fontcolor;
-			}
-		}
+	h2 {
+		margin-top: @h2margin;
 	}
-}
-
-#post-title {
-	background-color: @darksec;
-	color: @fontcolor;
-}
-
-#nav-title {
-	background-color: @darksec;
-	color: @fontcolor;
+	h3 {
+		margin-top: @h2margin * 0.85;
+	}
 }
