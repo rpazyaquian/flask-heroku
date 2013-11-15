@@ -6,13 +6,20 @@
 html {
   font-family: "Open Sans", sans-serif;
 }
+body header p {
+  margin: 4px;
+}
 body h2 {
   margin-top: 1.3em;
   font-family: "Andada", serif;
   color: #666666;
 }
 body h3 {
+  margin-top: 1em;
   margin-bottom: 4px;
+}
+body h4 {
+  margin: 0 0 8px 8px;
 }
 body ul li {
   list-style-type: square;
