@@ -3,6 +3,14 @@
 @import "unsemantic.css";
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans|Andada);
+@media screen {
+  #pdf {
+    position: fixed;
+    z-index: 2;
+    top: 32px;
+    right: 32px;
+  }
+}
 html {
   font-family: "Open Sans", sans-serif;
 }
