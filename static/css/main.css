@@ -2,15 +2,26 @@
 
 @import "unsemantic.css";
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans|Andada);
 html {
   font-family: "Open Sans", sans-serif;
 }
 body h2 {
-  margin-top: 1.5em;
+  margin-top: 1.3em;
+  font-family: "Andada", serif;
+  color: #666666;
 }
 body h3 {
-  margin-top: 1.275em;
+  margin-bottom: 4px;
+}
+body ul li {
+  list-style-type: square;
+  margin-bottom: 8px;
+}
+body p {
+  margin: 8px;
+}
+.date {
+  color: #669;
+  margin-bottom: 8px;
 }

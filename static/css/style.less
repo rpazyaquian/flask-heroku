@@ -1,6 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-
-@h2margin: 1.5em;
+@h2margin: 1.3em;
 
 html {
 	font-family: "Open Sans", sans-serif;
@@ -9,8 +7,27 @@ html {
 body {
 	h2 {
 		margin-top: @h2margin;
+		font-family: "Andada", serif;
+		color: lighten(#000000, 40%)
 	}
+
 	h3 {
-		margin-top: @h2margin * 0.85;
+		margin-bottom: 4px;
 	}
+
+	ul {
+		li {
+			list-style-type: square;
+			margin-bottom: 8px;
+		}
+	}
+
+	p {
+		margin: 8px;
+	}
+}
+
+.date {
+	color: #669;
+	margin-bottom: 8px;
 }
