@@ -15,6 +15,9 @@
   #pdf {
     display: none !important;
   }
+  h1 {
+    margin-top: 0px;
+  }
 }
 html {
   font-family: "Open Sans", sans-serif;
