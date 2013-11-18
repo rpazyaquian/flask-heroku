@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Define and add a home page.
 
 @app.route('/')  # The base URL for the home page.
-def resume():  # What is a homepage?
+def resume():
     return render_template('resume.html')
 
 

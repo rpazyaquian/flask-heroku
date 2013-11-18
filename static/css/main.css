@@ -2,25 +2,25 @@
 
 @import "unsemantic.css";
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans|Andada);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans|Andada|Noto+Serif);
 @media screen {
-  #pdf {
-    position: fixed;
-    z-index: 2;
-    top: 32px;
-    right: 32px;
+  html {
+    font-family: "Open Sans", sans-serif;
   }
 }
 @media print {
+  html {
+    font-family: "Andada", serif;
+  }
   #pdf {
     display: none !important;
   }
   h1 {
     margin-top: 0px;
   }
-}
-html {
-  font-family: "Open Sans", sans-serif;
+  ul li {
+    font-style: normal;
+  }
 }
 body header p {
   margin: 4px;
@@ -47,4 +47,10 @@ body p {
 .date {
   color: #669;
   margin-bottom: 8px;
+}
+#pdf {
+  position: fixed;
+  z-index: 2;
+  top: 32px;
+  right: 32px;
 }
