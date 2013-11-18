@@ -2,24 +2,18 @@
 
 @import "unsemantic.css";
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans|Andada|Noto+Serif);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans|Andada);
 @media screen {
   html {
     font-family: "Open Sans", sans-serif;
   }
 }
 @media print {
-  html {
-    font-family: "Andada", serif;
-  }
   #pdf {
     display: none !important;
   }
   h1 {
     margin-top: 0px;
-  }
-  ul li {
-    font-style: normal;
   }
 }
 body header p {
