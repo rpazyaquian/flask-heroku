@@ -10,6 +10,11 @@ def resume():
     return render_template('resume.html')
 
 
+#@app.route('/stocks/')
+#def stocks():
+#    return render_template('stocks.html')
+
+
 # Run this thing!
 if __name__ == '__main__':
     app.run(debug=True)
