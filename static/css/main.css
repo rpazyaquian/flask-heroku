@@ -12,9 +12,18 @@
   #pdf {
     display: none !important;
   }
+  #github {
+    display: none !important;
+  }
   h1 {
     margin-top: 0px;
   }
+  a {
+    text-decoration: none;
+  }
+}
+body a {
+  color: #3366FF;
 }
 body header p {
   margin: 4px;
@@ -46,5 +55,11 @@ body p {
   position: fixed;
   z-index: 2;
   top: 32px;
+  right: 32px;
+}
+#github {
+  position: fixed;
+  z-index: 2;
+  top: 96px;
   right: 32px;
 }
