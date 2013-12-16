@@ -5,18 +5,10 @@ from bokeh.plotting import *
 import datetime
 import pandas
 import pandas.io.data as web
+import shutil
+import os
 from pyta import *
 
-# Example of computing Bollinger bands for several stock charts at once.
-# This is achieved by using the Patch glyph.
-# Uses Pandas to access financial data, but converts most of the data to Numpy arrays.
-# Maybe this can be simplified?
-# Any other critique is well appreciated.
-
-
-# Declare output file.
-
-output_file('stocks.html', title='How are my stocks doing today?')
 
 # Define timespan.
 
@@ -35,11 +27,13 @@ symbols = ['AAPL', 'GOOG', 'MSFT', 'NTDOY']
 
 # Create a plot for each symbol.
 
-for s in symbols:
+def build_plot(symbol, periods, start, end):
 
-    # Obtain the data.
+    file_name = '%s.html' % symbol
 
-    data = web.DataReader(s, 'google', start, end)
+    output_file(file_name, title='How are my stocks doing today?')
+
+    data = web.DataReader(symbol, 'google', start, end)
 
     close = data['Close'].values  # Returns Numpy array.
 
@@ -102,19 +96,18 @@ for s in symbols:
 
     # Remove hold, allow for more plots to be added.
 
-    curplot().title = s
+    curplot().title = symbol
     curplot().height = 600
     curplot().width = 800
-
-    #curplot().create_html_snippet()
 
     yaxis().axis_label = 'Price (USD)'
 
     grid().grid_line_alpha = 0.4
 
-    hold()
+    save(file_name)
+
+    shutil.copy(file_name, 'templates')
+
+    os.remove(file_name)
 
 
-# Finally, display all plots.
-
-show()
