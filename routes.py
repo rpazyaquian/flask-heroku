@@ -28,8 +28,13 @@ periods = 50
 
 # {% endshame %}
 
+@app.route('/stocks')
+def stocks():
+    return render_template('stocks.html')
+
+
 @app.route('/stocks/<symbol>')
-def stocks(symbol):
+def lookup(symbol):
 
     stockscopy.build_plot(symbol, periods, start, end)
 
