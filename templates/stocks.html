@@ -17,6 +17,10 @@
 {% block content %}
     <div class="grid-70 prefix-15 suffix-15">
 
+        <p>Usage: http://rpazyaquian.herokuapp.com/stocks/symbol, where symbol is an NYSE stock symbol.</p>
+        <p>e.g.: http://rpazyaquian.herokuapp.com/stocks/AAPL</p>
+        <p>Only stocks that are 1. on the NYSE and 2. have a .csv provided for them by Google Finance work.</p>
+
         <p>This page is a half-placeholder, half-redirect notice for the stock symbol lookup function for this app.</p>
         <p>Eventually, this will be the base for displaying a Bokeh stock data plot.</p>
         <p>Note to self: see if I can refactor the routing code so that the url is just "/stocks?symbol=AAPL".</p>
