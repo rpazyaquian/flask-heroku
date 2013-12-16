@@ -2,27 +2,11 @@ __author__ = 'rebecca'
 
 from bokeh.plotting import *
 
-import datetime
 import pandas
 import pandas.io.data as web
 import shutil
 import os
 from pyta import *
-
-
-# Define timespan.
-
-start = datetime.date(2012, 1, 1)
-
-end = datetime.date.today()
-
-# Define time periods (for SMA and Bollinger).
-
-periods = 50
-
-# List of symbols to look up.
-
-symbols = ['AAPL', 'GOOG', 'MSFT', 'NTDOY']
 
 
 # Create a plot for each symbol.
