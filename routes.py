@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import datetime
-import stockscopy
+import plots
 
 app = Flask(__name__)
 
@@ -36,7 +36,7 @@ def stocks():
 @app.route('/stocks/<symbol>')
 def lookup(symbol):
 
-    stockscopy.build_plot(symbol, periods, start, end)
+    plots.build_plot(symbol, periods, start, end)
 
     return render_template('%s.html' % symbol)
 
