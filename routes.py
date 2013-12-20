@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-import datetime
 import plots
 
 app = Flask(__name__)
@@ -18,29 +17,14 @@ def echo(message):
     return "%s" % message
 
 
-# Shameful, shameful plotting logic. This does NOT belong here. FIXME!
-
-start = datetime.date(2012, 1, 1)
-
-end = datetime.date.today()
-
-periods = 50
-
-# {% endshame %}
-
-@app.route('/stocks')
-def stocks():
-    return render_template('stocks.html')
-
-
 @app.route('/stocks/<symbol>')
 def lookup(symbol):
 
-    plots.build_plot(symbol, periods, start, end)
+    snippet = plots.build_plot(symbol)
 
-    return render_template('%s.html' % symbol)
+    return render_template('stocks.html',
+                           snippet=snippet)
 
-# Create plot HTML pages.
 
 # Run this thing!
 if __name__ == '__main__':

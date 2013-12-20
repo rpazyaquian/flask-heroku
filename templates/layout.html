@@ -3,7 +3,6 @@
 
 <head>
 
-    {% block head %}
     <!--Unsemantic-->
     <meta
     name="viewport"
@@ -16,6 +15,8 @@
     <!--Unsemantic-->
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    {% block head %}
 
     <title>rpazyaquian.herokuapp.com</title>
 
