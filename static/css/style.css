@@ -1,8 +1,70 @@
-body {
-  background-color: #f8f8f8;
-  color: #000000;
+@media screen {
+  html {
+    font-family: "Open Sans", sans-serif;
+  }
 }
-.logo {
-  border: 2px solid #000000;
-  background-color: #ffffff;
+@media print {
+  #pdf {
+    display: none !important;
+  }
+  #github {
+    display: none !important;
+  }
+  h1 {
+    margin-top: 0px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+body a {
+  color: #3366FF;
+}
+body header p {
+  margin: 4px;
+}
+body h2 {
+  margin-top: 1.3em;
+  font-family: "Andada", serif;
+  color: #666666;
+}
+body h3 {
+  margin-top: 1em;
+  margin-bottom: 4px;
+}
+body h4 {
+  margin: 0 0 8px 8px;
+}
+body ul li {
+  list-style-type: square;
+  margin-bottom: 8px;
+}
+body p {
+  margin: 8px;
+}
+.date {
+  color: #669;
+  margin-bottom: 8px;
+}
+#pdf {
+  position: fixed;
+  z-index: 2;
+  top: 32px;
+  right: 32px;
+}
+#github {
+  position: fixed;
+  z-index: 2;
+  top: 96px;
+  right: 32px;
+}
+#error {
+  color: red;
+  font-size: 2em;
+  text-align: center;
+}
+#plot,
+#error,
+#header {
+  margin-bottom: 1em;
 }

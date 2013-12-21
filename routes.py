@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import plots
 
 app = Flask(__name__)
@@ -17,10 +17,21 @@ def echo(message):
     return "%s" % message
 
 
-@app.route('/stocks/<symbol>')
-def lookup(symbol):
+@app.route('/stocks')
+def lookup():
+    symbol = request.args.get('symbol')
 
-    snippet = plots.build_plot(symbol)
+    try:
+        len(symbol)
+    except TypeError:
+        return render_template('stocks.html',
+                               error='Please request a stock symbol.')
+
+    try:
+        snippet = plots.build_plot(symbol)
+    except IOError:
+        return render_template('stocks.html',
+                               error='Symbol not found.')
 
     return render_template('stocks.html',
                            snippet=snippet)

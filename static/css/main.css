@@ -63,3 +63,13 @@ body p {
   top: 96px;
   right: 32px;
 }
+#error {
+  color: red;
+  font-size: 2em;
+  text-align: center;
+}
+#plot,
+#error,
+#header {
+  margin-bottom: 1em;
+}
