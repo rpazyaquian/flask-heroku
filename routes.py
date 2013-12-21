@@ -27,14 +27,22 @@ def lookup():
         return render_template('stocks.html',
                                error='Please request a stock symbol.')
 
-    try:
-        snippet = plots.build_plot(symbol)
-    except IOError:
-        return render_template('stocks.html',
-                               error='Symbol not found.')
+    snippet_list = []
+
+    for i in symbol.split(','):
+
+        print i
+
+        try:
+            snippet_list.append(plots.build_plot(i))
+        except IOError:
+            return render_template('stocks.html',
+                                   error='One or more symbols were not found.')
+
+    print snippet_list
 
     return render_template('stocks.html',
-                           snippet=snippet)
+                           snippet_list=snippet_list)
 
 
 # Run this thing!

@@ -32,6 +32,7 @@ def build_plot(symbol):
 
 
     # Perform TA on stock data.
+    # TODO: Make the buy/sell signals actually do something.
 
     # Define SMA 50.
     sma50 = sma(close, periods)
@@ -69,7 +70,7 @@ def build_plot(symbol):
     # Remove hold, allow for more plots to be added.
     curplot().title = symbol
     curplot().height = 600
-    curplot().width = 1000
+    curplot().width = 800
 
     yaxis().axis_label = 'Price (USD)'
 
@@ -77,4 +78,5 @@ def build_plot(symbol):
 
     snippet = curplot().create_html_snippet(embed_base_url='../static/js/',
                                             embed_save_loc='./static/js')
+
     return snippet

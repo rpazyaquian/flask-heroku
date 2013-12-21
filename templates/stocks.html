@@ -35,13 +35,17 @@
     </div>
 
     <div class="grid-70 prefix-15 suffix-15" id="plot">
-        {{ snippet|safe }}
+        {% for snippet in snippet_list %}
+            {{ snippet|safe }}
+        {% endfor %}
     </div>
 
     <div class="grid-70 prefix-15 suffix-15">
 
-        <p>Usage: http://rpazyaquian.herokuapp.com/stocks/symbol, where symbol is an NYSE stock symbol.</p>
-        <p>e.g.: http://rpazyaquian.herokuapp.com/stocks/AAPL</p>
+        <p>Usage: http://rpazyaquian.herokuapp.com/stocks?symbol=(symbol), where (symbol) is an NYSE stock symbol.</p>
+        <p>e.g.: http://rpazyaquian.herokuapp.com/stocks?symbol=AAPL</p>
+        <p>You may also specify multiple plots.</p>
+        <p>e.g.: http://rpazyaquian.herokuapp.com/stocks?symbol=AAPL,GOOG,IBM</p>
         <p>Only stocks that are 1. on the NYSE and 2. have a .csv provided for them by Google Finance work.</p>
 
     </div>
