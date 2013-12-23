@@ -16,6 +16,7 @@ def echo(message):
     # Echos the message passed to it.
     return "%s" % message
 
+# TODO: Which of these two approaches is better?
 
 @app.route('/stocks/<symbol>')
 def lookup(symbol):
@@ -40,6 +41,29 @@ def lookup(symbol):
     return render_template('stocks.html',
                            snippet_list=snippet_list)
 
+
+#@app.route('/stocks')
+#def lookup():
+#    s = request.args.get('symbol')
+#
+#    try:
+#        len(s)
+#    except TypeError:
+#        return render_template('stocks.html',
+#                               error='Please request a stock symbol.')
+#
+#    snippet_list = []
+#
+#    for i in s.split(','):
+#
+#        try:
+#            snippet_list.append(plots.build_plot(i))
+#        except IOError:
+#            return render_template('stocks.html',
+#                                   error='One or more symbols were not found.')
+#
+#    return render_template('stocks.html',
+#                           snippet_list=snippet_list)
 
 # Run this thing!
 if __name__ == '__main__':
