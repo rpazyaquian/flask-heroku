@@ -16,6 +16,12 @@ def echo(message):
     # Echos the message passed to it.
     return "%s" % message
 
+
+@app.route('/stocks')
+def homestock():
+    
+    return render_template('stocks.html')
+
 # TODO: Which of these two approaches is better?
 
 @app.route('/stocks/<symbol>')
