@@ -19,7 +19,7 @@ def echo(message):
 
 @app.route('/stocks')
 def homestock():
-    
+
     return render_template('stocks.html')
 
 # TODO: Which of these two approaches is better?

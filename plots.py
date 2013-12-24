@@ -73,10 +73,10 @@ def build_plot(symbol):
                     color='#000000',
                     x_axis_type=None, )
 
-    rsi_min = line(x[50:], (np.ones(len(rsi50)) * 30),
+    line(x[50:], (np.ones(len(rsi50)) * 30),
                    color='#00FF00')
 
-    rsi_max = line(x[50:], (np.ones(len(rsi50)) * 70),
+    line(x[50:], (np.ones(len(rsi50)) * 70),
                    color='#00FF00')
 
     hold()
