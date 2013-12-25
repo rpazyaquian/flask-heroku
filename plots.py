@@ -12,6 +12,8 @@ import numpy as np
 # Create a plot for each symbol.
 
 def build_plot(symbol):
+
+    # Generate data.
     periods = 50
     file_name = '%s.html' % symbol
     output_file(file_name,
@@ -20,6 +22,9 @@ def build_plot(symbol):
     close = data['Close'].values  # Returns Numpy array.
     dates = data.index.values  # Returns Numpy array.
 
+    # Define plot constants.
+
+    plot_width = 1000
 
     # Perform TA on stock data.
     # TODO: Make the buy/sell signals actually do something.
@@ -44,48 +49,50 @@ def build_plot(symbol):
 
     x = data.index
     y = close
-
     # Plot RSI (remember, it goes on top)
 
-    rsi_plot = line(x[50:], rsi50,
+    # Predefine plot for axis buggery.
+
+    rsi_plot = line(x, rsi50,
                     color='#000000',
                     x_axis_type=None)
 
-    curplot().title = symbol
-    curplot().height = 200
-    curplot().width = 800
+    # Define RSI axis boundaries.
+    x_range = Range1d(start=x[0], end=x[-1])
+    xbounds = [x[0], x[-1]]
+
+    curplot().y_range = Range1d(start=0, end=100)
+    curplot().x_range = x_range
+
+    yaxis().bounds = [0, 100]
+    xaxis().bounds = xbounds
+
+    hold()
+
+    rsi_plot = line(x, rsi50,
+                    color='#000000',
+                    x_axis_type=None)
+
+    line(x, (np.ones(len(rsi50)) * 30),
+         color='#00FF00')
+
+    line(x, (np.ones(len(rsi50)) * 70),
+         color='#FF0000')
+
+    rsi_plot.title = symbol
+    rsi_plot.height = 200
+    rsi_plot.width = plot_width
     grid().grid_line_alpha = 0.4
     yaxis().axis_label = 'RSI'
 
-    # Define RSI axis boundaries.
-    curplot().y_range = Range1d(start=0, end=100)
-    yaxis().bounds = [0, 100]
-
-    xbounds = [x[50], x[-1]]
-    xrange = Range1d(start=x[50], end=x[-1])
-
-    xaxis().bounds = xbounds
-    curplot().x_range = xrange
-
-    hold()
-
-    rsi_plot = line(x[50:], rsi50,
-                    color='#000000',
-                    x_axis_type=None, )
-
-    line(x[50:], (np.ones(len(rsi50)) * 30),
-                   color='#00FF00')
-
-    line(x[50:], (np.ones(len(rsi50)) * 70),
-                   color='#00FF00')
-
+    # Remove hold for the main plot.
     hold()
 
     # Plot raw stock data.
-    main_plot = line(x[50:], y[50:],
+    main_plot = line(x, y,
                      color='#1B9E77',
                      legend='Price at Close',
-                     x_axis_type = 'datetime',
+                     x_axis_type='datetime',
                      title='')
 
     # Hold for the overlays.
@@ -109,15 +116,16 @@ def build_plot(symbol):
     hold()
 
     # Miscellaneous plot attributes.
-    curplot().height = 600
-    curplot().width = 800
+    main_plot.height = 600
+    main_plot.width = plot_width
     yaxis().axis_label = 'Price (USD)'
     grid().grid_line_alpha = 0.4
 
     xaxis().bounds = xbounds
-    curplot().x_range = xrange
+    curplot().x_range = x_range
 
     main_plot.min_border_top = 0
+    main_plot.min_border_bottom = 100
 
     # Make a grid and snippet from this.
 
