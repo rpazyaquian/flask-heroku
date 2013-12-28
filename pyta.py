@@ -74,7 +74,8 @@ def rsi(prices, timeframe=14):
     Return type: Array.
     """
 
-    delta = np.diff(prices)
+    delta = prices.diff()
+
     seed = delta[:timeframe + 1]
 
     up = seed[seed >= 0].sum() / timeframe
@@ -140,7 +141,7 @@ def macd_line(prices):
     return macd
 
 
-def macd_signal(prices):
+def macd_signal(macd):
     """
     Returns the MACD signal line of a given set of price data.
 
@@ -148,24 +149,19 @@ def macd_signal(prices):
     Return type: Array.
     """
 
-    ema9 = pandas.ewma(prices, span=9)
+    ema9 = pandas.ewma(macd, span=9)
 
     return ema9
 
 
-def macd_hist(prices):
+def macd_hist(macd, signal):
     """
     Returns the MACD histogram data for a given set of price data.
 
     Accepts: Array.
     Return type: Array.
     """
-
-    ema9 = pandas.ewma(prices, span=9)
-    ema12 = pandas.ewma(prices, span=12)
-    ema26 = pandas.ewma(prices, span=26)
-
-    hist = (ema12 - ema26) - ema9
+    hist = macd - signal
     return hist
 
 if __name__ == "__main__":
