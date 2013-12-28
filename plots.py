@@ -19,8 +19,8 @@ def build_plot(symbol):
     output_file(file_name,
                 title='How are my stocks doing today?')
     data = web.DataReader(symbol, 'google')
-    close = data['Close'].values  # Returns Numpy array.
-    dates = data.index.values  # Returns Numpy array.
+    close = data['Close']  # Returns Numpy array.
+    dates = data.index # Returns Numpy array.
 
     # Define plot constants.
 
@@ -41,8 +41,8 @@ def build_plot(symbol):
 
     # Define MACD Line, Signal, and Histogram.
     macd = macd_line(close)
-    signal = macd_signal(close)  # TODO: Actually use these. Figure out subplots!
-    hist = macd_hist(close)
+    signal = macd_signal(macd)  # TODO: Actually use these. Figure out subplots!
+    hist = macd_hist(macd, signal)
 
 
     # Finished with the data? Then it's time to plot!
@@ -79,9 +79,12 @@ def build_plot(symbol):
     line(x, (np.ones(len(rsi50)) * 70),
          color='#FF0000')
 
+    # Miscellaneous plot attributes.
+
     rsi_plot.title = symbol
     rsi_plot.height = 200
     rsi_plot.width = plot_width
+    rsi_plot.min_border_bottom = 10
     grid().grid_line_alpha = 0.4
     yaxis().axis_label = 'RSI'
 
@@ -92,7 +95,7 @@ def build_plot(symbol):
     main_plot = line(x, y,
                      color='#1B9E77',
                      legend='Price at Close',
-                     x_axis_type='datetime',
+                     x_axis_type=None,
                      title='')
 
     # Hold for the overlays.
@@ -124,12 +127,31 @@ def build_plot(symbol):
     xaxis().bounds = xbounds
     curplot().x_range = x_range
 
-    main_plot.min_border_top = 0
-    main_plot.min_border_bottom = 100
+    # Plot MACD.
+
+    macd_plot = line(x, macd,
+         color='#D95F02',
+         title='',
+         x_axis_type='datetime')
+
+    hold()
+
+    line(x, signal,
+         color='#1B9E77')
+
+    hold()
+
+    # Attributes.
+    macd_plot.height = 200
+    macd_plot.width = plot_width
+    yaxis().axis_label = 'MACD'
+
+    macd_plot.min_border_top = 0
+    macd_plot.min_border_bottom = 100
 
     # Make a grid and snippet from this.
 
-    plot_grid = gridplot([[rsi_plot], [main_plot]])
+    plot_grid = gridplot([[rsi_plot], [main_plot], [macd_plot]])
 
     snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/',
                                             embed_save_loc='./static/js')
