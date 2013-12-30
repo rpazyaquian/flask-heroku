@@ -9,18 +9,73 @@ from pyta import *
 import numpy as np
 
 
+#Trying to add signals to the indicators.
+def sma_signal(sma50, sma200):
+    output_array = []
+    for i in range(len(sma50)):
+        if i == 0:
+            output_array.append('BEGIN')
+            continue
+        if pandas.isnull(sma50[i]):
+            output_array.append('WAIT')
+        elif sma50[i] > sma200[i]:
+            if sma50[i-1] < sma200[i-1]:
+                output_array.append('BUY')
+            else:
+                output_array.append('WAIT')
+        elif sma50[i] < sma200[i]:
+            if sma50[i-1] > sma200[i-1]:
+                output_array.append('SELL')
+            else:
+                output_array.append('WAIT')
+        else:
+            output_array.append('WAIT')
+    return output_array
+
 # Create a plot for each symbol.
 
-def build_plot(symbol):
+def build_data(symbol):
+    periods = 50
+    data = web.DataReader(symbol, 'google')
+    close = data['Close']
+
+    sma50 = sma(close, periods)
+    data['SMA50'] = sma50
+
+    sma200 = sma(close, 200)
+    data['SMA200'] = sma200
+
+    upperband = bollinger_upper(close, sma50, periods)
+    lowerband = bollinger_lower(close, sma50, periods)
+    data['Bollinger (upper)'] = upperband
+    data['Bollinger (lower)'] = lowerband
+
+    rsi50 = rsi(close)
+    data['RSI50'] = rsi50
+
+    macd = macd_line(close)
+    signal = macd_signal(macd)
+    hist = macd_hist(macd, signal)
+
+    data['MACD Line'] = macd
+    data['MACD Signal'] = signal
+    data['MACD Histogram'] = hist
+
+    return data
+
+
+
+def build_plot(symbol, days_ago):
+
+    data = build_data(symbol)
 
     # Generate data.
-    periods = 50
     file_name = '%s.html' % symbol
     output_file(file_name,
                 title='How are my stocks doing today?')
-    data = web.DataReader(symbol, 'google')
-    close = data['Close']  # Returns Numpy array.
-    dates = data.index # Returns Numpy array.
+
+    close = data['Close']
+    dates = data.index
 
     # Define plot constants.
 
@@ -29,26 +84,29 @@ def build_plot(symbol):
     # Perform TA on stock data.
     # TODO: Make the buy/sell signals actually do something.
 
-    # Define SMA 50.
-    sma50 = sma(close, periods)
+    # Define SMA 50/200.
+    sma50 = data['SMA50']
+    sma200 = data['SMA200']
 
     # Define Bollinger Bands.
-    upperband = bollinger_upper(close, sma50, periods)
-    lowerband = bollinger_lower(close, sma50, periods)
+    upperband = data['Bollinger (upper)']
+    lowerband = data['Bollinger (lower)']
 
     # Define RSI.
-    rsi50 = rsi(close)  # TODO: Figure out a way to translate "crosses under/above line" to a sell signal.
+    rsi50 = data['RSI50']  # TODO: Figure out a way to translate "crosses under/above line" to a sell signal.
+
 
     # Define MACD Line, Signal, and Histogram.
-    macd = macd_line(close)
-    signal = macd_signal(macd)  # TODO: Actually use these. Figure out subplots!
-    hist = macd_hist(macd, signal)
+    macd = data['MACD Line']
+    signal = data['MACD Signal']  # TODO: Actually use these. Figure out subplots!
+    hist = data['MACD Histogram']
 
 
     # Finished with the data? Then it's time to plot!
 
     x = data.index
     y = close
+
     # Plot RSI (remember, it goes on top)
 
     # Predefine plot for axis buggery.
@@ -58,7 +116,7 @@ def build_plot(symbol):
                     x_axis_type=None)
 
     # Define RSI axis boundaries.
-    x_range = Range1d(start=x[0], end=x[-1])
+    x_range = Range1d(start=x[-days_ago], end=x[-1])
     xbounds = [x[0], x[-1]]
 
     curplot().y_range = Range1d(start=0, end=100)
@@ -74,10 +132,10 @@ def build_plot(symbol):
                     x_axis_type=None)
 
     line(x, (np.ones(len(rsi50)) * 30),
-         color='#00FF00')
+         color='#4daf4a')
 
     line(x, (np.ones(len(rsi50)) * 70),
-         color='#FF0000')
+         color='#e41a1c')
 
     # Miscellaneous plot attributes.
 
@@ -107,6 +165,11 @@ def build_plot(symbol):
     line(x, sma50,
          color='#D95F02',
          legend='50-day SMA')
+
+    # SMA 200:
+    line(x, sma200,
+         color='#e7298a',
+         legend='200-day SMA')
 
     # Bollinger shading glyph:
     bandprice = stackify(upperband, lowerband)  # Reverse the upper band data and append it to the lower band data.
@@ -155,5 +218,9 @@ def build_plot(symbol):
 
     snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/',
                                             embed_save_loc='./static/js')
+
+    # Return signal arrays.
+
+    sma_signals = sma_signal(sma50, sma200)
 
     return snippet

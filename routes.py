@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 import plots
 
 app = Flask(__name__)
@@ -39,7 +39,7 @@ def lookup(symbol):
     for i in s.split(','):
 
         try:
-            snippet_list.append(plots.build_plot(i))
+            snippet_list.append(plots.build_plot(i, days_ago=50))
         except IOError:
             return render_template('stocks.html',
                                    error='One or more symbols were not found.')
