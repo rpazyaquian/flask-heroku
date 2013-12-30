@@ -65,7 +65,7 @@ def build_data(symbol):
 
 
 
-def build_plot(symbol, days_ago):
+def build_plot(symbol):
 
     data = build_data(symbol)
 
@@ -116,7 +116,7 @@ def build_plot(symbol, days_ago):
                     x_axis_type=None)
 
     # Define RSI axis boundaries.
-    x_range = Range1d(start=x[-days_ago], end=x[-1])
+    x_range = Range1d(start=x[0], end=x[-1])
     xbounds = [x[0], x[-1]]
 
     curplot().y_range = Range1d(start=0, end=100)
