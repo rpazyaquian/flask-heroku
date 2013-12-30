@@ -39,7 +39,7 @@ def lookup(symbol):
     for i in s.split(','):
 
         try:
-            snippet_list.append(plots.build_plot(i, days_ago=50))
+            snippet_list.append(plots.build_plot(i))
         except IOError:
             return render_template('stocks.html',
                                    error='One or more symbols were not found.')
