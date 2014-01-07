@@ -1,4 +1,4 @@
-Stock chart web app built with Flask and Bokeh.
+Web app built with Flask. Contains my resume as well as a simple stock charting application made with Bokeh.
 
 Things I want to add:
 
