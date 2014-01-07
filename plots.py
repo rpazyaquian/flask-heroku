@@ -182,7 +182,7 @@ def build_plot(symbol):
     hold()
 
     # Miscellaneous plot attributes.
-    main_plot.height = 600
+    main_plot.height = 400
     main_plot.width = plot_width
     yaxis().axis_label = 'Price (USD)'
     grid().grid_line_alpha = 0.4
