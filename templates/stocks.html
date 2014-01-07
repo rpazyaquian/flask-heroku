@@ -8,7 +8,16 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/continuum.css') }}" type="text/css" />
 
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" type="text/css" />
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+
     <script type="text/javascript" src="{{ url_for('static', filename='js/bokeh.js') }}"></script>
+
 
     <title>How are my stocks doing today?</title>
 
@@ -27,21 +36,28 @@
 
 {% endblock %}
 
-
 {% block content %}
 
-    <div class="grid-70 prefix-15 suffix-15" id="error">
-        {{ error }}
-    </div>
+<!--<div class="grid-70 prefix-15 suffix-15" id="plot">-->
 
-    <!--<div class="grid-70 prefix-15 suffix-15" id="plot">-->
-    <div id="plot">
-        {% for snippet in snippet_list %}
-            {{ snippet|safe }}
+
+<div id="tabs">
+
+    <ul>
+        {% for snippet in snippet_dict %}
+            <li><a href="#{{ snippet }}">{{ snippet }}</a></li>
         {% endfor %}
-    </div>
+    </ul>
 
-    <div class="grid-70 prefix-15 suffix-15">
+    {% for snippet in snippet_dict %}
+        <div class="plot" id="{{ snippet }}">
+                {{ snippet_dict[snippet]|safe }}
+        </div>
+    {% endfor %}
+</div>
+
+
+    <aside>
 
         <p>Usage: http://rpazyaquian.herokuapp.com/stocks/(symbol), where (symbol) is an NYSE stock symbol.</p>
         <p>e.g.: http://rpazyaquian.herokuapp.com/stocks/AAPL</p>
@@ -49,5 +65,10 @@
         <p>e.g.: http://rpazyaquian.herokuapp.com/stocks/AAPL,GOOG,IBM</p>
         <p>Only stocks that are 1. on the NYSE and 2. have a .csv provided for them by Google Finance work.</p>
 
-    </div>
+    </aside>
+
+    <script>
+        $( "#tabs" ).tabs();
+    </script>
+
 {% endblock %}

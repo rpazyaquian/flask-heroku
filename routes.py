@@ -34,18 +34,19 @@ def lookup(symbol):
         return render_template('stocks.html',
                                error='Please request a stock symbol.')
 
-    snippet_list = []
+    symbols_list = s.split(',')
 
-    for i in s.split(','):
+    snippet_dict = {}
+
+    for i in symbols_list:
 
         try:
-            snippet_list.append(plots.build_plot(i))
+            snippet_dict[i] = plots.build_plot(i)
         except IOError:
-            return render_template('stocks.html',
-                                   error='One or more symbols were not found.')
+            continue
 
     return render_template('stocks.html',
-                           snippet_list=snippet_list)
+                           snippet_dict=snippet_dict)
 
 
 #@app.route('/stocks')
@@ -58,18 +59,19 @@ def lookup(symbol):
 #        return render_template('stocks.html',
 #                               error='Please request a stock symbol.')
 #
-#    snippet_list = []
+#    symbols_list = s.split(',')
 #
-#    for i in s.split(','):
+#    snippet_dict = {}
+#
+#    for i in symbols_list:
 #
 #        try:
-#            snippet_list.append(plots.build_plot(i))
+#            snippet_dict[i] = plots.build_plot(i)
 #        except IOError:
-#            return render_template('stocks.html',
-#                                   error='One or more symbols were not found.')
+#            continue
 #
 #    return render_template('stocks.html',
-#                           snippet_list=snippet_list)
+#                           snippet_dict=snippet_dict)
 
 # Run this thing!
 if __name__ == '__main__':
