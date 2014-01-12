@@ -44,7 +44,7 @@ def lookup():
 
     print "building plots..."
     for i in symbols_list:
-        i = i.upper()
+        #i = i.upper()
         try:
             snippet_dict[i] = plots.build_plot(i)
         except IOError:
