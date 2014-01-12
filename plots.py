@@ -8,10 +8,6 @@ import pandas.io.data as web
 from pyta import *
 import numpy as np
 
-import urllib2
-
-
-
 #Trying to add signals to the indicators.
 
 def sma_signal(sma50, sma200):
@@ -262,6 +258,8 @@ def build_plot(symbol):
 
     # Return signal arrays.
 
+    print "creating signals..."
+
     sma_signals = sma_signal(sma50, sma200)
     boll_signals = boll_signal(close, upperband, lowerband)
     rsi_signals = rsi_signal(rsi50)
@@ -272,5 +270,7 @@ def build_plot(symbol):
     print boll_signals[-1]
     print '%s RSI signal says:' % symbol
     print rsi_signals[-1]
+
+    print "returning snippet..."
 
     return snippet
