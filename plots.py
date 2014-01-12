@@ -244,6 +244,8 @@ def build_plot(symbol):
     macd_plot.width = plot_width
     yaxis().axis_label = 'MACD'
 
+    print "wom"
+
     macd_plot.min_border_top = 0
     macd_plot.min_border_bottom = 100
 
