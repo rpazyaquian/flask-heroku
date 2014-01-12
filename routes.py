@@ -44,11 +44,12 @@ def lookup():
 
     print "building plots..."
     for i in symbols_list:
-        try:
-            snippet_dict[i] = plots.build_plot(i.upper())
-        except IOError:
-            print "symbol %s not found" % i
-            continue
+        snippet_dict[i] = plots.build_plot(i.upper())
+        #try:
+        #    snippet_dict[i] = plots.build_plot(i.upper())
+        #except IOError:
+        #    print "symbol %s not found" % i
+        #    continue
 
     print "rendering template..."
 
