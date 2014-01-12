@@ -253,6 +253,8 @@ def build_plot(symbol):
 
     plot_grid = gridplot([[rsi_plot], [main_plot], [macd_plot]])
 
+    print "building snippet..."
+
     snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/temp/',
                                             embed_save_loc='./static/js/temp')
 
