@@ -8,8 +8,12 @@ import pandas.io.data as web
 from pyta import *
 import numpy as np
 
+import urllib2
+
+
 
 #Trying to add signals to the indicators.
+
 def sma_signal(sma50, sma200):
     output_array = []
     for i in range(len(sma50)):
@@ -32,21 +36,46 @@ def sma_signal(sma50, sma200):
             output_array.append('WAIT')
     return output_array
 
+
+def boll_signal(price, upperband, lowerband):
+    output_array = []
+    for i in range(len(upperband)):
+        if price[i] > upperband[i]:
+            output_array.append('BUY')
+        elif price[i] < lowerband[i]:
+            output_array.append('SELL')
+        else:
+            output_array.append('WAIT')
+    return output_array
+
+
+def rsi_signal(rsi):
+    output_array = []
+    for i in range(len(rsi)):
+        if rsi[i] > 70:
+            output_array.append('OVERBOUGHT')
+        elif rsi[i] < 30:
+            output_array.append('OVERSOLD')
+        else:
+            output_array.append('WAIT')
+    return output_array
+
 # Create a plot for each symbol.
 
+
 def build_data(symbol):
-    periods = 50
+
     data = web.DataReader(symbol, 'google')
     close = data['Close']
 
-    sma50 = sma(close, periods)
+    sma50 = sma(close, 50)
     data['SMA50'] = sma50
 
     sma200 = sma(close, 200)
     data['SMA200'] = sma200
 
-    upperband = bollinger_upper(close, sma50, periods)
-    lowerband = bollinger_lower(close, sma50, periods)
+    upperband = bollinger_upper(close, sma50, 50)
+    lowerband = bollinger_lower(close, sma50, 50)
     data['Bollinger (upper)'] = upperband
     data['Bollinger (lower)'] = lowerband
 
@@ -67,9 +96,14 @@ def build_data(symbol):
 
 def build_plot(symbol):
 
+    main_plot_title = symbol
+
+    print "building data..."
     data = build_data(symbol)
 
     # Generate data.
+
+    print "generating data..."
     file_name = '%s.html' % symbol
     output_file(file_name,
                 title='How are my stocks doing today?')
@@ -111,6 +145,8 @@ def build_plot(symbol):
 
     # Predefine plot for axis buggery.
 
+    print "building RSI plot..."
+
     rsi_plot = line(x, rsi50,
                     color='#000000',
                     x_axis_type=None)
@@ -139,7 +175,7 @@ def build_plot(symbol):
 
     # Miscellaneous plot attributes.
 
-    rsi_plot.title = symbol
+    rsi_plot.title = main_plot_title
     rsi_plot.height = 200
     rsi_plot.width = plot_width
     rsi_plot.min_border_bottom = 10
@@ -149,7 +185,9 @@ def build_plot(symbol):
     # Remove hold for the main plot.
     hold()
 
-    # Plot raw stock data.
+
+    print "building main plot..."
+    # Plot raw stock data (main plot).
     main_plot = line(x, y,
                      color='#1B9E77',
                      legend='Price at Close',
@@ -192,6 +230,7 @@ def build_plot(symbol):
 
     # Plot MACD.
 
+    print "building MACD plot..."
     macd_plot = line(x, macd,
          color='#D95F02',
          title='',
@@ -214,13 +253,24 @@ def build_plot(symbol):
 
     # Make a grid and snippet from this.
 
+    print "building grid..."
+
     plot_grid = gridplot([[rsi_plot], [main_plot], [macd_plot]])
 
-    snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/',
-                                            embed_save_loc='./static/js')
+    snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/temp/',
+                                            embed_save_loc='./static/js/temp')
 
     # Return signal arrays.
 
     sma_signals = sma_signal(sma50, sma200)
+    boll_signals = boll_signal(close, upperband, lowerband)
+    rsi_signals = rsi_signal(rsi50)
+
+    print '%s SMA signal says:' % symbol
+    print sma_signals[-1]
+    print '%s Bollinger breakout signal says:' % symbol
+    print boll_signals[-1]
+    print '%s RSI signal says:' % symbol
+    print rsi_signals[-1]
 
     return snippet

@@ -54,7 +54,7 @@ def stackify(x, y):
     and y would be the lower band data (which has the reversed upper data appended).
     This would supply the y coordinates.
 
-    The function still needs a little more work, since it's not very generalized.
+    The function still needs a little more work/clarification, since it's not very generalized.
     (Especially since it assumes the input is an array.)
     Accepts: Array 1; Array 2.
     Return type: Array.

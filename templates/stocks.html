@@ -18,7 +18,6 @@
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/bokeh.js') }}"></script>
 
-
     <title>How are my stocks doing today?</title>
 
 {% endblock %}
@@ -27,7 +26,7 @@
 {% block header %}
 
 <header>
-    <div id="header" class="grid-70 prefix-15 suffix-15">
+    <div id="header" class="grid-70 prefix-15 suffix-15 stockheader">
 
         <h1>How are my stocks doing today?</h1>
 
@@ -38,9 +37,20 @@
 
 {% block content %}
 
-<!--<div class="grid-70 prefix-15 suffix-15" id="plot">-->
+<div id="searchbar">
+    <form method="get">
+        <input type="text" class="search" name="symbol" placeholder="Enter symbols...">
+        <input type="submit" value="Go">
+    </form>
+</div>
+
+{% if s_length == 0 %}
+<div class="grid-70" id="error">
+    {{ error }}
+</div>
 
 
+{% elif sd_length > 0 %}
 <div id="tabs">
 
     <ul>
@@ -54,18 +64,10 @@
                 {{ snippet_dict[snippet]|safe }}
         </div>
     {% endfor %}
+
 </div>
 
-
-    <aside>
-
-        <p>Usage: http://rpazyaquian.herokuapp.com/stocks/(symbol), where (symbol) is an NYSE stock symbol.</p>
-        <p>e.g.: http://rpazyaquian.herokuapp.com/stocks/AAPL</p>
-        <p>You may also specify multiple plots with a comma separated list.</p>
-        <p>e.g.: http://rpazyaquian.herokuapp.com/stocks/AAPL,GOOG,IBM</p>
-        <p>Only stocks that are 1. on the NYSE and 2. have a .csv provided for them by Google Finance work.</p>
-
-    </aside>
+{% endif %}
 
     <script>
         $( "#tabs" ).tabs();

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import plots
 
 app = Flask(__name__)
@@ -18,60 +18,50 @@ def echo(message):
 
 
 @app.route('/stocks')
-def homestock():
+def lookup():
 
-    return render_template('stocks.html')
+    s = request.args.get('symbol')
 
-# TODO: Which of these two approaches is better?
-
-@app.route('/stocks/<symbol>')
-def lookup(symbol):
-    s = symbol
+    print "testing for length of symbol array..."
 
     try:
         len(s)
     except TypeError:
         return render_template('stocks.html',
-                               error='Please request a stock symbol.')
+                               error='Please request a stock symbol.',
+                               s_length=0,
+                               sd_length=0)
+
+    if len(s) == 0:
+        return render_template('stocks.html',
+                               error='Please request a stock symbol.',
+                               s_length=0,
+                               sd_length=0)
 
     symbols_list = s.split(',')
 
     snippet_dict = {}
 
+    print "building plots..."
     for i in symbols_list:
-
         try:
             snippet_dict[i] = plots.build_plot(i)
         except IOError:
             continue
 
+    print "rendering template..."
+
+    print len(snippet_dict)
+
+    if len(snippet_dict) == 0:
+        return render_template('stocks.html',
+                               error='No valid symbols found.',
+                               s_length=0,
+                               sd_length=0)
+
     return render_template('stocks.html',
-                           snippet_dict=snippet_dict)
-
-
-#@app.route('/stocks')
-#def lookup():
-#    s = request.args.get('symbol')
-#
-#    try:
-#        len(s)
-#    except TypeError:
-#        return render_template('stocks.html',
-#                               error='Please request a stock symbol.')
-#
-#    symbols_list = s.split(',')
-#
-#    snippet_dict = {}
-#
-#    for i in symbols_list:
-#
-#        try:
-#            snippet_dict[i] = plots.build_plot(i)
-#        except IOError:
-#            continue
-#
-#    return render_template('stocks.html',
-#                           snippet_dict=snippet_dict)
+                           snippet_dict=snippet_dict,
+                           sd_length=len(snippet_dict))
 
 # Run this thing!
 if __name__ == '__main__':
