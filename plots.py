@@ -8,6 +8,8 @@ import pandas.io.data as web
 from pyta import *
 import numpy as np
 
+# Creates a set of stock charts in Bokeh.
+
 #Trying to add signals to the indicators.
 
 def sma_signal(sma50, sma200):
