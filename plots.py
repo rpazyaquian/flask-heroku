@@ -96,12 +96,10 @@ def build_plot(symbol):
 
     main_plot_title = symbol
 
-    print "building data..."
     data = build_data(symbol)
 
     # Generate data.
 
-    print "generating data..."
     file_name = '%s.html' % symbol
     output_file(file_name,
                 title='How are my stocks doing today?')
@@ -143,7 +141,6 @@ def build_plot(symbol):
 
     # Predefine plot for axis buggery.
 
-    print "building RSI plot..."
 
     rsi_plot = line(x, rsi50,
                     color='#000000',
@@ -184,7 +181,6 @@ def build_plot(symbol):
     hold()
 
 
-    print "building main plot..."
     # Plot raw stock data (main plot).
     main_plot = line(x, y,
                      color='#1B9E77',
@@ -228,7 +224,6 @@ def build_plot(symbol):
 
     # Plot MACD.
 
-    print "building MACD plot..."
     macd_plot = line(x, macd,
          color='#D95F02',
          title='',
@@ -251,18 +246,12 @@ def build_plot(symbol):
 
     # Make a grid and snippet from this.
 
-    print "building grid..."
-
     plot_grid = gridplot([[rsi_plot], [main_plot], [macd_plot]])
 
-    print "building snippet..."
-
-    snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/temp/',
-                                            embed_save_loc='./static/js/temp')
+    snippet = plot_grid.create_html_snippet(embed_base_url='../static/js/',
+                                            embed_save_loc='./static/js')
 
     # Return signal arrays.
-
-    print "creating signals..."
 
     sma_signals = sma_signal(sma50, sma200)
     boll_signals = boll_signal(close, upperband, lowerband)

@@ -28,8 +28,6 @@ def lookup():
 
     s = request.args.get('symbol')
 
-    print "testing for length of symbol array..."
-
     try:
         len(s)
     except TypeError:
@@ -48,17 +46,12 @@ def lookup():
 
     snippet_dict = {}
 
-    print "building plots..."
     for i in symbols_list:
-        snippet_dict[i] = plots.build_plot(i.upper())
-        #try:
-        #    snippet_dict[i] = plots.build_plot(i.upper())
-        #except IOError, e:
-        #    print "symbol %s not found" % i
-        #    traceback.print_exc()
-        #    continue
-
-    print "rendering template..."
+        try:
+            snippet_dict[i] = plots.build_plot(i.upper())
+        except IOError:
+            print "symbol %s not found" % i
+            continue
 
     if len(snippet_dict) == 0:
         return render_template('stocks.html',
