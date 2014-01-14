@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request
 import plots
-import traceback
+
+import logging
+from logging import FileHandler
 
 app = Flask(__name__)
 
+file_handler = FileHandler('errlogs.txt')
+file_handler.setLevel(logging.WARNING)
+app.logger.addHandler(file_handler)
 
 # Define and add a home page.
 
