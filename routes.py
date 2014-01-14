@@ -2,11 +2,11 @@ from flask import Flask, render_template, request
 import plots
 
 import logging
-from logging import FileHandler
+from logging import StreamHandler
 
 app = Flask(__name__)
 
-file_handler = FileHandler('errlogs.txt')
+file_handler = StreamHandler()
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
