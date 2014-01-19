@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+
+        <title>Registration</title>
+
+{% endblock %}
+
+{% block header %}
+
+        <div id="header" class="grid-70 prefix-15 suffix-15">
+
+            <h1>Registration</h1>
+
+        </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="registration" class="grid-30 prefix-35 suffix-35 grid-parent">
+    <form method="POST" action="/register">
+        {{ form.hidden_tag() }}
+        <div class="grid-50">
+            {{ form.username.label }}
+            <p></p>
+            {{ form.password.label }}
+            <p></p>
+            {{ form.confirm_password.label }}
+            <p></p>
+        </div>
+        <div class="grid-50">
+            {{ form.username }}
+            <p></p>
+            {{ form.password }}
+            <p></p>
+            {{ form.confirm_password }}
+            <p></p>
+        </div>
+        <input type="submit" value="Register">
+    </form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+</div>
+
+{% endblock %}
