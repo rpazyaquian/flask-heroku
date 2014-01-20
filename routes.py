@@ -39,14 +39,6 @@ def flash_errors(form):
             ))
 
 
-#def flash_errors(form):
-#    for field, errors in form.errors.items():
-#        for error in errors:
-#            flash(u"Error in %s field - %s" % (
-#                getattr(form, field).label.text,
-#                error
-#            ))
-
 file_handler = StreamHandler()
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
@@ -62,9 +54,13 @@ def load_user(id):
     return User.query.get(id)
 
 
+#@app.route('/')
+#def resume():
+#    return render_template('resume.html')
+
 @app.route('/')
-def resume():
-    return render_template('resume.html')
+def home():
+    return redirect('lookup')
 
 
 @app.route('/echo/<path:message>')
