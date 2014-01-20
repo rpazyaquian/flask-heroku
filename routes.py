@@ -60,7 +60,7 @@ def load_user(id):
 
 @app.route('/')
 def home():
-    return redirect('lookup')
+    return redirect(url_for('lookup'))
 
 
 @app.route('/echo/<path:message>')
